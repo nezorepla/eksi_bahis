@@ -12,9 +12,19 @@ using System.Xml.Linq;
 
 public partial class _Default : System.Web.UI.Page 
 {
+    yazar Yazar = new yazar();
     protected void Page_Load(object sender, EventArgs e)
     {
-        Session["yazar"] = "eskimo";
+        string Nick= "eskimo";
+        Int16 YazarFlg=1;
+
+        
+        
+        Yazar.GelenYazar(Nick,YazarFlg);
+        Session["yazar"] = Nick;
+        Session["yazar_ID"] = Yazar.YazarId;
+        Session["suser"] = Yazar.Suser;
+
         Response.Redirect("Oranlar.aspx");
     }
 }

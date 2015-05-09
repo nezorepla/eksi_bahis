@@ -15,6 +15,6 @@ public partial class Oranlar : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Label1.Text = Session["yazar_ID"].ToString();
     }
 }

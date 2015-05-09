@@ -1,20 +1,48 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Untitled Page</title>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
+    <div class="meta">
+        <div class="metalinks">
+            <a href="#">
+                <img src="images/meta1.gif" alt="" width="15" height="14" /></a> <a href="#">
+                    <img src="images/meta2.gif" alt="" width="17" height="14" /></a> <a href="#">
+                        <img src="images/meta3.gif" alt="" width="17" height="14" /></a> <a href="#">
+                            <img src="images/meta4.gif" alt="" width="15" height="14" /></a>
+        </div>
+        <p>
+            Kullanıcı: <a href="User.aspx?ID=<%=Session["yazar_ID"] %>">
+                <asp:Label ID="lblYazar" runat="server"></asp:Label>
+            </a>Bakiye <a href="#">
+                <asp:Label ID="lblBakiye" runat="server"></asp:Label></a></p>
+    </div>
+    <div id="header">
+        <a href="Main.aspx" class="logo">
+            <img src="images/logo.jpg" alt="setalpm" width="149" height="28" /></a> <span class="slogan">
+                slogan</span>
+        <ul id="menu">
+            <li><a href="#">Oranlar</a></li>
+            <li><a href="#">Kuponlar</a></li>
+            <li class="last"><a href="#">Diğer</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
     </div>
+     
+    <%--   <div id="footer">
+        Copyright &copy;. All rights reserved. Design by <a href="http://www.bestfreetemplates.info"
+            target="_blank" title="Free CSS templates">BFT</a>
+    </div>--%>
     </form>
 </body>
 </html>
