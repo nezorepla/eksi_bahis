@@ -13,6 +13,9 @@ using System.Xml.Linq;
 public partial class _Default : System.Web.UI.Page 
 {
     yazar Yazar = new yazar();
+    DebeAl debeal = new DebeAl();
+    db DB = new db();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string Nick= "eskimo";
@@ -25,6 +28,11 @@ public partial class _Default : System.Web.UI.Page
         Session["yazar_ID"] = Yazar.YazarId;
         Session["suser"] = Yazar.Suser;
 
+        if (!debeal.DebeKontrol())
+        {
+            debeal.al();
+            DB.ExecuteStoredProcedure("EB_SP_DEBE", "eb");
+        }
         Response.Redirect("Oranlar.aspx");
     }
 }

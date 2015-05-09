@@ -55,7 +55,7 @@ public class db
 
     public void ExecuteStoredProcedure(String query, String pConnKey)
     {
-        SqlConnection Conn = new SqlConnection(GetConnStr("pConnKey"));
+        SqlConnection Conn = new SqlConnection(GetConnStr(pConnKey));
         SqlCommand cmd = new SqlCommand();
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.CommandText = query;
