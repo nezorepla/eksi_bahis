@@ -4,15 +4,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div style="float: left">
-        <div style="width: 600px;">
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    <table><tr><td style="width: 700px;">
+          <div>  <asp:Label ID="lblBulten" runat="server" Text="Label"></asp:Label>
+            <asp:TextBox ID="txtEid" runat="server"></asp:TextBox>
+            <asp:Button ID="btnEidAl"
+                runat="server" Text="Entry getir" onclick="btnEidAl_Click" />
+        </div></td><td style="width: 200px;">
+        
+        <div>
+            Kuponum:<br />
+            <asp:Label ID="lblKuponum" runat="server" Text="Boş"></asp:Label>
         </div>
-        <div style="width: 200px;">
-            <div style="display:block">
-                Kuponum:<br />
-                <asp:Label ID="lblKuponum" runat="server" Text="Boş"></asp:Label>
-            </div>
-        </div>
+  </td></tr></table>
+    <div style="clear: both">
     </div>
 </asp:Content>

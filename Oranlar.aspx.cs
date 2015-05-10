@@ -10,11 +10,44 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using ExtensionMethods;
 
 public partial class Oranlar : System.Web.UI.Page
 {
+    EntryAl ea = new EntryAl();
+    db DB = new db();
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label1.Text = Session["yazar_ID"].ToString();
+        if (!Page.IsPostBack)
+        {
+            try
+            {
+                lblBulten.Text = Session["yazar_ID"].ToString();
+            }
+            catch
+            {
+                Response.Redirect("Default.aspx");
+            }
+        }
+        Bulten();
+
+
+    }
+
+
+
+    public void Bulten()
+    {
+        DataTable dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
+        lblBulten.Text = dt.HTMLTableString("bulten", "bulten"); ;
+    }
+
+
+    protected void btnEidAl_Click(object sender, EventArgs e)
+    {
+        string eid = txtEid.Text.ToString().Trim();
+
+        ea.EntryAlma(eid);
+        Bulten();
     }
 }

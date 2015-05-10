@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
     <div class="meta">
         <div class="metalinks">
-            <a href="#">
+            <a href="Oranlar.aspx">
                 <img src="images/meta1.gif" alt="" width="15" height="14" /></a> <a href="#">
                     <img src="images/meta2.gif" alt="" width="17" height="14" /></a> <a href="#">
                         <img src="images/meta3.gif" alt="" width="17" height="14" /></a> <a href="#">
@@ -25,7 +25,7 @@
                 <asp:Label ID="lblBakiye" runat="server"></asp:Label></a></p>
     </div>
     <div id="header">
-        <a href="Main.aspx" class="logo">
+        <a href="Oranlar.aspx" class="logo">
             <img src="images/logo.jpg" alt="setalpm" width="149" height="28" /></a> <span class="slogan">
                 slogan</span>
         <ul id="menu">

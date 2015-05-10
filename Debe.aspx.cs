@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using ExtensionMethods;
 
 public partial class Debe : System.Web.UI.Page
 {
@@ -25,6 +26,6 @@ public partial class Debe : System.Web.UI.Page
     public string DBYaz() {
 
         DataTable dt = DB.Getdata("exec EB_SP_Dunun", "eb");
- return  debe.HTMLTableString(dt, "debe", "debe");
+ return  dt.HTMLTableString( "debe", "debe");
     }
 }

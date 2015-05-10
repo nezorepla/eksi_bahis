@@ -91,7 +91,7 @@ alter proc EB_SP_DEBE as
 declare @a1 int;
 declare @a2 int;
 
-select @a1 =  count(*)  from EB_Def_Durum where DATEDIFF(day,sdt,getdate())=0
+ select @a1 =  count(*)  from EB_Def_Durum where DATEDIFF(day,sdt,getdate())=0
 
  if (isnull(@a1,0)=0)
  begin
@@ -109,12 +109,19 @@ insert into EB_Dat_Dunun
 select RIGHT(adres,8) eid,sira, adres, baslik, yazar, tarih , 0 durum from dbo.EB_Tmp_Dunun
 end
 truncate table eb_Tmp_Dunun;
+--truncate table EB_Def_Durum
+------------------------------------------
+alter PROC EB_SP_Dunun as
+select cast(sira as varchar(2))sira ,'<a href="https://eksisozluk.com'+adres+'">'+baslik+'/#'+cast(eid as varchar(8))+'</a> ' entry, yazar
+   from EB_dat_Dunun where DATEDIFF(day,tarih,getdate())=0
 
 ------------------------------------------
 create PROC EB_SP_YazarBakiye(@YID int)as
 select SUM(TUTAR) BAKIYE 
 FROM EB_Tbl_ParaLog
 WHERE YID=@YID;
+
+ 
 
  
 

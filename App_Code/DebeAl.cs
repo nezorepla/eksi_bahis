@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Net;
 using System.Data.SqlClient;
-
+using ExtensionMethods;
 
 /// <summary>
 /// Summary description for DebeAl
@@ -66,7 +66,7 @@ public class DebeAl
         //writer.WriteLine(source);
         // writer.Close();
 
-        source = vericek(source, "topic-list\"", "</ol>");
+        source = source.vericek("topic-list\"", "</ol>");
         source = source.Replace("<li>", "|").ToString();
         string[] ayir = source.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -128,54 +128,9 @@ public class DebeAl
         baglanti.Close();
     }
 
-    public static string vericek(string StrData, string StrBas, string StrSon)
-    {
-        try
-        {
-            int IntBas = StrData.IndexOf(StrBas) + StrBas.Length;
-            int IntSon = StrData.IndexOf(StrSon, IntBas + 1);
-            return StrData.Substring(IntBas, IntSon - IntBas);
-        }
-        catch
-        {
-            return "";
-        }
-
-    }
 
 
 
 
-    public string HTMLTableString(DataTable dt, string id, string css)
-    {
-
-        String RVl = "";
-        try
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<table id=\"" + id + "\" border=\"0\" cellpadding=\"0\" cellspacing=\"1\"  class=\"" + css + "\"  ><thead><tr>");
-            foreach (DataColumn c in dt.Columns)
-            {
-                sb.AppendFormat("<th>{0}</th>", c.ColumnName);
-            }
-            sb.AppendLine("</tr></thead><tbody>");
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                sb.Append("<tr>"); foreach (object o in dr.ItemArray)
-                {
-                    sb.AppendFormat("<td>{0}</td>", o.ToString());
-                    //System.Web.HttpUtility.HtmlEncode());
-                } sb.AppendLine("</tr>");
-            } sb.AppendLine("</tbody></table>");
-            RVl = sb.ToString();
-        }
-        catch (Exception ex)
-        {
-            RVl = "HATA @ConvertDataTable2HTMLString: " + ex;
-        }
-        return RVl;
-    }
-
-
+ 
 }
