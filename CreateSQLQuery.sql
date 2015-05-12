@@ -126,3 +126,53 @@ WHERE YID=@YID;
  
 
 ------------------------------------------
+create table EB_Tbl_Entrys (
+IntCode int identity(1,1),
+eid bigint,
+baslik varchar(250),
+entry varchar(max),
+description varchar(max),
+dt datetime,
+yazar varchar(150),
+favcnt int,
+idt datetime)
+------------------------------------------
+alter proc [dbo].[EB_SP_EntryAdd] (@id bigint ,@baslik varchar(250),@en varchar(max),@ds varchar(max),@yazar varchar(150),@favcnt int,@tm varchar(200)) as
+
+insert into EB_Tbl_Entrys(eid,baslik,entry,description,dt,yazar,favcnt,idt)
+select @id ,@baslik, @en ,@ds, convert(datetime,@tm,104),@yazar,@favcnt,GETDATE()
+
+--
+
+alter proc EB_SP_Bulten_Debe as
+select baslik,yazar,dt 
+from EB_Tbl_Entrys
+where DATEDIFF(day,dateadd(hour,-6,dt),getdate())=0
+
+-- =============================================
+alter FUNCTION EB_Fx_YazarScore
+( @yazar varchar(40)
+)
+RETURNS  float
+AS
+BEGIN
+
+  declare @score float;
+
+
+select @score=CONVERT(float,sum(case yazar when @yazar then adet else 1 end))/ CONVERT(float,sum(adet)) 
+from (
+SELECT yazar ,COUNT(*) adet
+  FROM ( select distinct * from dbo.EB_hist_debe 
+ )a  
+ group by yazar
+ having COUNT(*)>10
+ )X
+ 
+	-- Return the result of the function
+	RETURN @score
+
+END
+GO
+
+--------------------------------
