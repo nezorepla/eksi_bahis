@@ -45,7 +45,7 @@ public partial class Oranlar : System.Web.UI.Page
 
     protected void btnEidAl_Click(object sender, EventArgs e)
     {
-        string eid = txtEid.Text.ToString().Trim();
+        string eid = txtEid.Text.ToString().Replace("#","").Trim();
 
         ea.EntryAlma(eid);
         Bulten();

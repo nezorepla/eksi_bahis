@@ -142,15 +142,9 @@ alter proc [dbo].[EB_SP_EntryAdd] (@id bigint ,@baslik varchar(250),@en varchar(
 insert into EB_Tbl_Entrys(eid,baslik,entry,description,dt,yazar,favcnt,idt)
 select @id ,@baslik, @en ,@ds, convert(datetime,@tm,104),@yazar,@favcnt,GETDATE()
 
---
-
-alter proc EB_SP_Bulten_Debe as
-select baslik,yazar,dt 
-from EB_Tbl_Entrys
-where DATEDIFF(day,dateadd(hour,-6,dt),getdate())=0
-
--- =============================================
-alter FUNCTION EB_Fx_YazarScore
+-- 
+ -- =============================================
+create FUNCTION EB_Fx_YazarScore
 ( @yazar varchar(40)
 )
 RETURNS  float
@@ -175,4 +169,83 @@ SELECT yazar ,COUNT(*) adet
 END
 GO
 
+-- =============================================
+create FUNCTION EB_Fx_ZamanScore
+( @time datetime
+)
+RETURNS  float
+AS
+BEGIN
+
+  declare @score float;
+  declare @zaman datetime;
+
+--select  @zaman=
+--datepart(hour,dt)
+--from EB_Tbl_Entrys
+--where eid=51276861
+
+select @score=CONVERT(float,sum(case dt when datepart(hour,@time) then adet else 1 end))/ CONVERT(float,sum(adet)) 
+from (
+SELECT datepart(hour,dt) dt ,COUNT(*) adet
+  FROM ( select distinct * from dbo.EB_hist_debe 
+ )a  
+ group by datepart(hour,dt)
+  )X
+  
+	-- Return the result of the function
+	RETURN @score
+
+END
+GO
+
 --------------------------------
+-- =============================================
+create FUNCTION EB_Fx_BaslikScore
+( @baslik varchar(40)
+)
+RETURNS  float
+AS
+BEGIN
+
+  declare @score float;
+  
+  select @score=CONVERT(float,sum(case baslik when @baslik then adet else 1 end))/ CONVERT(float,sum(adet)) 
+from (
+SELECT baslik ,COUNT(*) adet
+  FROM ( select distinct * from dbo.EB_hist_debe 
+ )a  
+ group by baslik
+   )X
+  
+	-- Return the result of the function
+	RETURN @score
+
+END
+GO
+-- =============================================
+create FUNCTION EB_Fx_DebeOran
+(@eid int
+)
+RETURNS  float
+AS
+BEGIN
+
+  declare @score float;
+
+select @score=dbo.EB_Fx_YazarScore(yazar) /dbo.EB_Fx_ZamanScore(dt) / dbo.EB_Fx_BaslikScore(baslik)
+from EB_Tbl_Entrys
+where eid=@eid  
+
+  
+	-- Return the result of the function
+	RETURN ROUND(@score,2)
+
+END
+GO
+
+creATE proc [dbo].[EB_SP_Bulten_Debe] as
+
+select baslik,yazar,dt  ,DBO.EB_Fx_DebeOran(eid) DebeOran
+from EB_Tbl_Entrys
+where DATEDIFF(day,dateadd(hour,-6,GETDATE()),dt)=0
