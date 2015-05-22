@@ -11,6 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ExtensionMethods
 {
@@ -19,6 +20,13 @@ namespace ExtensionMethods
     /// </summary>
     public static class Extensions
     {
+        public static string OnlyNumber(this string value)
+        {
+
+
+            return Regex.Replace(value, @"[^\d]", "");
+        }
+
         public static string Right(this string value, int length)
         {
             if (String.IsNullOrEmpty(value)) return string.Empty;
@@ -71,7 +79,51 @@ namespace ExtensionMethods
 
             return rv;
         }
-        public static  string HTMLTableString(this DataTable dt, string id, string css)
+
+        public static string ToJSON(this DataTable Dt)
+        {
+            string[] StrDc = new string[Dt.Columns.Count];
+            string HeadStr = string.Empty;
+            StringBuilder Sb = new StringBuilder();
+            if (Dt.Rows.Count > 0)
+            {
+                if (Dt.Columns.Count > 0)
+                {
+
+                    for (int i = 0; i < Dt.Columns.Count; i++)
+                    {
+                        StrDc[i] = Dt.Columns[i].Caption;
+                        HeadStr += "\"" + StrDc[i] + "\" : \"" + StrDc[i] + i.ToString() + "¾" + "\",";
+
+                    }
+                    HeadStr = HeadStr.Substring(0, HeadStr.Length - 1);
+                    // Sb.Append("{\"" + Dt.TableName + "\" : [");
+                    Sb.Append("[");
+                    for (int i = 0; i < Dt.Rows.Count; i++)
+                    {
+                        string TempStr = HeadStr;
+                        Sb.Append("{");
+                        for (int j = 0; j < Dt.Columns.Count; j++)
+                        {
+                            TempStr = TempStr.Replace("<br>", Environment.NewLine).Replace(Dt.Columns[j] + j.ToString() + "¾", Dt.Rows[i][j].ToString());
+                        }
+                        Sb.Append(TempStr + "},");
+                    }
+                    Sb = new StringBuilder(Sb.ToString().Substring(0, Sb.ToString().Length - 1));
+                    //Sb.Append("]}");
+                    Sb.Append("]");
+                }
+                else
+                {
+                    Sb.Append("[]");
+                }
+            }
+            else { Sb.Append("[]"); }
+            return Sb.ToString();
+
+        }
+
+        public static string HTMLTableString(this DataTable dt, string id, string css)
         {
 
             String RVl = "";

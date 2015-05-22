@@ -38,14 +38,15 @@ public partial class Oranlar : System.Web.UI.Page
 
     public void Bulten()
     {
-        DataTable dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
-        lblBulten.Text = dt.HTMLTableString("bulten", "bulten"); ;
+       // DataTable dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
+       //// lblBulten.Text = dt.HTMLTableString("bulten", "bulten");
+       // lblBulten.Text = dt.ToJSON();
     }
 
 
     protected void btnEidAl_Click(object sender, EventArgs e)
     {
-        string eid = txtEid.Text.ToString().Replace("#","").Trim();
+        string eid = txtEid.Text.ToString().Right(8).OnlyNumber();//.Replace("#","").Trim();
 
         ea.EntryAlma(eid);
         Bulten();

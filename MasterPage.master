@@ -5,6 +5,11 @@
 <head runat="server">
     <title>Untitled Page</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -38,7 +43,6 @@
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-     
     <%--   <div id="footer">
         Copyright &copy;. All rights reserved. Design by <a href="http://www.bestfreetemplates.info"
             target="_blank" title="Free CSS templates">BFT</a>
