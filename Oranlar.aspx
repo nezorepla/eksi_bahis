@@ -3,49 +3,21 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
-    <script>
-
-
-        function Debe() {
-
-            var src = $('.lblBulten');
-            src.html('<img src="imgages/loading.gif"/>');
-            // $('#tbMEMO').val('Json.aspx?I=6&T=' + JT + '&M=' + b + '&TP=' + T);
-            try {
-                $.ajax({
-                    url: 'Json.aspx',
-                    dataType: 'json',
-                    cache: false,
-                    success: function(JSON) {
-                        var W = ''
-                        $.each(JSON, function(i, val) {
-
-                            W += ('<div id="MBOX">  ' + val.baslik + '/@'
-                    + val.yazar + '  ' + val.DebeOran + '</div>');
-
-                        });
-
-                        src.empty(); src.html(W);
-                    }, error: function(xhr, ajaxOptions, thrownError) { src.append(xhr.status + thrownError); }
-                });
-            }
-            catch (ex) {
-                src.empty().prepend('HATA ()' + ex.message);
-
-            }
-            finally { }
-        }
-
-    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-        <script type="text/javascript">
-            $(function() {
 
-                Debe();
-            });
+    <script type="text/javascript">
+        $(function() {
+
+        $(".kuponekle").live("click", function() {
+                alert();
+//                var eid = this.attr("id");
+//                alert(eid);
+            })
+        });
     </script>
+
     <table>
         <tr>
             <td style="width: 700px;">

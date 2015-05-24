@@ -15,10 +15,17 @@ using ExtensionMethods;
 public partial class Json : System.Web.UI.Page
 {
     db DB = new db();
+    EntryAl ea = new EntryAl();
     protected void Page_Load(object sender, EventArgs e)
     {
         DataTable dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
+
+        if (dt.Rows.Count == 0)
+        {
+            ea.PopulerBasliklariAl();
+            dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
         
+        }
         string val = dt.ToJSON();
         Response.Clear();
         //Response.ContentType = "application/json; charset=utf-8";

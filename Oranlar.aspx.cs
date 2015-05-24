@@ -41,6 +41,8 @@ public partial class Oranlar : System.Web.UI.Page
        // DataTable dt = DB.Getdata("exec EB_SP_Bulten_Debe", "eb");
        //// lblBulten.Text = dt.HTMLTableString("bulten", "bulten");
        // lblBulten.Text = dt.ToJSON();
+        ScriptManager.RegisterStartupScript(this, typeof(string), "bulten", "Debe();", true);
+
     }
 
 
