@@ -10,11 +10,15 @@
     <script type="text/javascript">
         $(function() {
 
-        $(".kuponekle").live("click", function() {
-                alert();
-//                var eid = this.attr("id");
-//                alert(eid);
-            })
+            //        $(".kuponekle").live("click", function() {
+            //                alert();
+            ////                var eid = this.attr("id");
+            ////                alert(eid);
+            //            })
+
+            //add(''' + val.eid + ''',1,''' + val.baslik + ''',''' + val.DebeOran + ''');
+       
+
         });
     </script>
 
@@ -29,10 +33,10 @@
                     <asp:Button ID="btnEidAl" runat="server" Text="Entry getir" OnClick="btnEidAl_Click" />
                 </div>
             </td>
-            <td style="width: 200px;">
+            <td style="width: 200px; vertical-align:top">
                 <div>
                     Kuponum:<br />
-                    <asp:Label ID="lblKuponum" runat="server" Text="Boş"></asp:Label>
+                    <asp:Label ID="lblKuponum" CssClass="lblKuponum" runat="server" ></asp:Label>
                 </div>
             </td>
         </tr>

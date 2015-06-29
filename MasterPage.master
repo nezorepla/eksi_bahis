@@ -27,7 +27,7 @@
                         $.each(JSON, function(i, val) {
 
                             W += ('<div id="MBOX">  ' + val.baslik + '/@'
-                    + val.yazar + '  <span id="' + val.eid + '" class="kuponekle">' + val.DebeOran + '</span></div>');
+                    + val.yazar + '  <span id="' + val.eid + '" class="kuponekle" onclick="add(' + val.eid + ',1 ,\'' + val.baslik + '\',\'' + val.DebeOran + '\',\'' + val.yazar + '\');">' + val.DebeOran + '</span></div>');
 
                         });
 
@@ -40,7 +40,13 @@
 
             }
             finally { }
-        }</script>
+        }
+        //add(' + val.eid + ',1 ,\'' + val.baslik + '\',\'' + val.DebeOran + '\',\'' + val.yazar + '\');
+        function add(eid, oyun, baslik, oran, yazar) {
+          //  alert(oran);
+        $(".lblKuponum").append(baslik+"<br>")
+         }
+    </script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
